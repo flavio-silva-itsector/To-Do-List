@@ -2,7 +2,10 @@ import styled from "styled-components";
 
 import { BaseColors } from "@/types";
 
-export const Wrapper = styled.li`
+interface WrapperProps {
+  isCompleted: boolean;
+}
+export const Wrapper = styled.li<WrapperProps>`
   width: 100%;
   min-height: 32px;
   display: flex;
@@ -13,6 +16,8 @@ export const Wrapper = styled.li`
   border: 1px solid;
   border-radius: 4px;
   transition: 0.5s;
+
+  opacity: ${({ isCompleted }) => (isCompleted ? 0.5 : 1)};
 
   &:nth-child(odd) {
     background-color: ${BaseColors.gray800};
@@ -47,17 +52,17 @@ export const Div = styled.div<DivProps>`
   align-items: center;
   gap: 4px;
   flex: ${({ isLeft }) => isLeft && 1};
+`;
 
-  span {
-    flex: 1;
-    font-size: 16px;
-    word-break: break-word;
-    cursor: pointer;
-
-    &.completed {
-      text-decoration: line-through;
-    }
-  }
+interface TaskTitleProps {
+  isCompleted: boolean;
+}
+export const TaskTitle = styled.span<TaskTitleProps>`
+  flex: 1;
+  font-size: 16px;
+  word-break: break-word;
+  cursor: pointer;
+  text-decoration: ${({ isCompleted }) => isCompleted && "line-through"};
 `;
 
 interface ButtonProps {

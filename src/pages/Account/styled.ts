@@ -26,7 +26,7 @@ export const FormsContainer = styled.div`
   }
 `;
 
-export const Form = styled.form`
+export const Form = styled.div`
   width: 40%;
   height: 50%;
   min-width: 250px;

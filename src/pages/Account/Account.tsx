@@ -1,76 +1,35 @@
-import { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-
-import type { SimpleUser, UsersStateStore } from "@/store";
-import { useUsersStore } from "@/store";
-import { PAGES } from "@/types/enums";
-
+import { useState } from "react";
 import { Input } from "./Components";
-import { HTTPCodesMessage } from "./HTTPCodesMessage";
+import useAccount from "./hook";
 import { Form, FormsContainer, Wrapper } from "./styled";
 
 export function Account() {
-  const navigate = useNavigate();
-  const [user, setUser] = useState({
-    name: "",
-    username: "",
-    password: "",
-  } as SimpleUser);
+  const { user, setUser, onSubmitLogin, onSubmitSingUp } = useAccount();
+  const [beep, setBeep] = useState("");
 
-  const status = useUsersStore((state: UsersStateStore) => state.status);
-
-  const createUser = useUsersStore((state: UsersStateStore) => state.create);
-  const login = useUsersStore((state: UsersStateStore) => state.login);
-  const clearStatus = useUsersStore(
-    (state: UsersStateStore) => state.clearStatus
-  );
-
-  useEffect(() => {
-    if (status) {
-      const output = HTTPCodesMessage(status);
-      Swal.fire({
-        icon: output?.type,
-        title: output?.title,
-        text: output?.message,
-      }).then(() => {
-        if (status === "200") navigate(PAGES.HOME);
-      });
-    }
-
-    return clearStatus;
-  }, [clearStatus, navigate, status]);
-
-  const onSubmitLogin = useCallback(
-    (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      login(user);
-    },
-    [login, user]
-  );
-
-  const onSubmitSingUp = useCallback(
-    (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      createUser({ ...user });
-    },
-    [createUser, user]
-  );
+  console.log(beep);
 
   return (
     <Wrapper>
       <h2>Account</h2>
       <FormsContainer>
-        <Form onSubmit={onSubmitLogin}>
+        <Form>
           <h3>Login</h3>
+
+          <Input
+            label="Beep"
+            title="Beep"
+            placeholder="Beep"
+            value={beep}
+            onChange={(e) => console.log(e)}
+          />
 
           <Input
             label="Username"
             title="Username"
             placeholder="Username"
-            property="username"
-            state={user}
-            setState={setUser}
+            value={user.username}
+            onChange={(newValue) => setUser({ ...user, username: newValue })}
           />
 
           <Input
@@ -78,15 +37,14 @@ export function Account() {
             label="Password"
             title="Password"
             placeholder="Password"
-            property="password"
-            state={user}
-            setState={setUser}
+            value={user.password}
+            onChange={(newValue) => setUser({ ...user, password: newValue })}
           />
 
-          <button>Login</button>
+          <button onClick={onSubmitLogin}>Login</button>
         </Form>
 
-        <Form onSubmit={onSubmitSingUp}>
+        <Form>
           <h3>Sign Up</h3>
 
           <Input
@@ -94,8 +52,8 @@ export function Account() {
             title="User Name"
             placeholder="Name"
             property="name"
-            state={user}
-            setState={setUser}
+            value={user.name || ""}
+            onChange={(newValue) => setUser({ ...user, name: newValue })}
           />
 
           <Input
@@ -103,8 +61,8 @@ export function Account() {
             title="Username"
             placeholder="Username"
             property="username"
-            state={user}
-            setState={setUser}
+            value={user.username}
+            onChange={(newValue) => setUser({ ...user, username: newValue })}
           />
 
           <Input
@@ -113,11 +71,11 @@ export function Account() {
             title="Password"
             placeholder="Password"
             property="password"
-            state={user}
-            setState={setUser}
+            value={user.password}
+            onChange={(newValue) => setUser({ ...user, password: newValue })}
           />
 
-          <button>Create</button>
+          <button onClick={onSubmitSingUp}>Create</button>
         </Form>
       </FormsContainer>
     </Wrapper>

@@ -1,0 +1,6 @@
+- Update Task hook
+- Fazer testes unitários
+- Storybook
+- Theme with styled-components
+- Escrever uma Wiki
+- Atualizar o readme

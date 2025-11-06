@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { CompletedIcon, DeleteIcon, FavoriteIcon } from "./components";
-import { Button, Div, Wrapper } from "./styled";
+import { Button, Div, TaskTitle, Wrapper } from "./styled";
 
 import { useTask } from "./hooks";
 import type { TaskProps } from "./types";
@@ -16,7 +16,7 @@ export function Task({ id, title, isFavorite, isCompleted }: TaskProps) {
   }
 
   return (
-    <Wrapper>
+    <Wrapper isCompleted={isCompleted}>
       <Div isLeft={true}>
         <Button
           isActive={isFavorite}
@@ -24,13 +24,13 @@ export function Task({ id, title, isFavorite, isCompleted }: TaskProps) {
         >
           <FavoriteIcon isFavorite={isFavorite} />
         </Button>
-        <span
-          className={isCompleted ? "completed" : ""}
+        <TaskTitle
+          isCompleted={isCompleted}
           title="Double click to change task title"
           onDoubleClick={handleChangeTitleDoubleClick}
         >
           {title}
-        </span>
+        </TaskTitle>
       </Div>
 
       <Div>

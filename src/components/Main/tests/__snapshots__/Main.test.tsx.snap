@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<Main /> > renders children correctly and matches snapshot 1`] = `
+<DocumentFragment>
+  <main
+    class="sc-Qotzb bclqUT"
+  >
+    <p>
+      Beep
+    </p>
+  </main>
+</DocumentFragment>
+`;

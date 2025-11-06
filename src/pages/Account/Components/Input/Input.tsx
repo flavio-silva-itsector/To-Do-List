@@ -1,35 +1,21 @@
-import { SimpleUser } from "@/store";
-
-export type InputProps = {
+export type InputProps = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "capture"
+> & {
   label: string;
-  property: keyof SimpleUser;
-  state: SimpleUser;
-  setState: React.Dispatch<React.SetStateAction<SimpleUser>>;
-  title?: string;
-  placeholder?: string;
-  type?: string;
+  value: string;
+  onChange: (value: string) => void;
+  capture?: boolean | "user" | "environment";
 };
 
-export function Input({
-  label,
-  property,
-  state,
-  setState,
-  ...othersProps
-}: InputProps) {
+export function Input({ label, onChange, ...othersProps }: InputProps) {
   return (
     <label>
       <span>{label}</span>
 
       <input
-        value={state[property]}
-        onChange={(e) =>
-          setState((prev: SimpleUser) => ({
-            ...prev,
-            [property]: e.target.value,
-          }))
-        }
         {...othersProps}
+        onChange={(e) => onChange(String(e.target.value))}
       />
     </label>
   );

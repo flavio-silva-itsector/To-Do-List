@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<NotFound /> > renders children correctly and matches snapshot 1`] = `
+<DocumentFragment>
+  404
+</DocumentFragment>
+`;

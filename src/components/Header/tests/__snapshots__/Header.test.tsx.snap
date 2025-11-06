@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<Header /> > always renders the title 1`] = `
+<DocumentFragment>
+  <header>
+    <h1>
+      To Do List
+    </h1>
+    <div
+      data-testid="search"
+    />
+    <div
+      data-testid="user-home-icon"
+    />
+  </header>
+</DocumentFragment>
+`;

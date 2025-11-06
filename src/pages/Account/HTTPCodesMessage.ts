@@ -1,8 +1,9 @@
-type HTTPCodesMessageReturn = {
+export type HTTPCodesMessageReturn = {
   title: string;
   type: "success" | "error";
   message?: string;
 };
+
 export function HTTPCodesMessage(
   code: string
 ): HTTPCodesMessageReturn | undefined {
